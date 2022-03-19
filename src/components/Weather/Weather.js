@@ -16,6 +16,8 @@ import {
 } from "./style";
 import iconMatching from "./IconMatching";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 const Weather = () => {
   const [weatherData, setWeatherData] = useState(null);

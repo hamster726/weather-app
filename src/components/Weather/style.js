@@ -54,6 +54,19 @@ const SearchCityContainer = styled.div`
 const Form = styled.form`
 position: relative;
 `;
+
+const FormSubmitButton = styled.input`
+  height: 30px;
+  border: none;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  background: #ffffff90;
+  transition: 0.05s ease;
+  &:active {
+    background: #aaaaaa90;
+  }
+`;
+
 const FormInput = styled.input`
   background: #ffffff50;
   border: none;
@@ -66,12 +79,10 @@ const FormInput = styled.input`
   &::placeholder {
     color: #CDD5C1;
   }
-`;
-const FormSubmitButton = styled.input`
-  height: 30px;
-  border: none;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
+
+  &:focus {
+    outline: none
+  }
   
 `;
 
