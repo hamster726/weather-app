@@ -13,6 +13,7 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 60px 0;
+  min-height: 270px;
 `;
 const City = styled.div`
   text-align: center;
@@ -51,6 +52,7 @@ const SearchCityContainer = styled.div`
 `;
 
 const Form = styled.form`
+position: relative;
 `;
 const FormInput = styled.input`
   background: #ffffff50;
@@ -73,6 +75,39 @@ const FormSubmitButton = styled.input`
   
 `;
 
+const CityList = styled.ul`
+  padding: 0;
+  padding-top: 5px;
+  margin: 0;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  width: 264.37px;
+  min-height: 30px;
+  background: #ffffff50;
+  
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+
+  overflow: hidden;
+
+`
+
+const CityItem = styled.li`
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  padding: 0;
+  padding-left: 10px;
+  margin: 0;
+  min-height: 30px;
+  border-bottom: 1px solid #ffffff50;
+  cursor: pointer;
+  &:hover {
+    background: #ffffff50;
+  }
+`
+
 export {
   Header,
   Container,
@@ -85,4 +120,6 @@ export {
   Form,
   FormInput,
   FormSubmitButton,
+  CityList,
+  CityItem
 };

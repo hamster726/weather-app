@@ -1,8 +1,12 @@
 html, body {
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(#111642, #1d5372, #123352);
-  color: #CDD5C1;
+  /*background: linear-gradient(#111642, #1d5372, #123352);*/
+  /*background: linear-gradient(#facf62, #e6756f, #884186);*/
+  /*background: linear-gradient(#f0eebc, #e6756f, #ee8049);*/
+  background: linear-gradient(#8dcdba, #eee07a, #f0eebc);
+  /*color: #CDD5C1;*/
+  color: #363c80;
   font-family: "Open Sans", sans-serif;
 }
 
