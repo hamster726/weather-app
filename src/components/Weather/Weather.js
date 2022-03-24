@@ -12,22 +12,25 @@ import {
   Form,
   FormInput,
   CityList,
-  CityItem,
+  CityItem, Main,
 } from "./style";
 import iconMatching from "./IconMatching";
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import {useDispatch} from "react-redux";
+import {currentTheme} from "../../redux/actions/actions";
 
 const Weather = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [inputValue, setInputValue] = useState("");
   const [cityList, setCityList] = useState(null);
 
+  const dispatch = useDispatch();
+
   //initial effect
   useEffect(() => {
     getWeatherFromCity().then((res) => {
       setWeatherData(res);
+      dispatch(currentTheme(res.hours))
     });
   }, []);
 
@@ -43,30 +46,31 @@ const Weather = () => {
 
   if (!weatherData)
     return (
-      <main>
+      <Main>
         <Container>
           <LoadingSpinner />
         </Container>
-      </main>
+      </Main>
     );
 
   const updateWeatherCity = (e, data) => {
     if (e) e.preventDefault();
 
     const cityName = data ? data : inputValue;
-
     if (!cityName.trim()) {
       setInputValue("");
       return;
     }
 
-    getWeatherFromCity(cityName).then((res) => setWeatherData(res));
+    getWeatherFromCity(cityName).then((res) => {
+      setWeatherData(res);
+      dispatch(currentTheme(res.hours))
+    });
     setCityList(null);
     setInputValue("");
   };
 
   const renderCityList = (res) => {
-    console.log(res);
     if (!res || res.data < 1) return null;
 
     const cityItems = [...res.data];
@@ -75,10 +79,7 @@ const Weather = () => {
       <CityList>
         {cityItems.map((item, i) => {
           return (
-            <CityItem
-              key={i}
-              onClick={(e) => updateWeatherCity(e, item.name)}
-            >
+            <CityItem key={i} onClick={(e) => updateWeatherCity(e, item.name)}>
               {`${item.name} (${item.country})`}
             </CityItem>
           );
@@ -88,7 +89,7 @@ const Weather = () => {
   };
 
   return (
-    <main>
+    <Main>
       <Container>
         <City>{weatherData.city.toUpperCase()}</City>
         <Time>{weatherData.date}</Time>
@@ -112,7 +113,7 @@ const Weather = () => {
         </Form>
       </SearchCityContainer>
       <div>for the week</div>
-    </main>
+    </Main>
   );
 };
 

@@ -1,10 +1,23 @@
-import styled, { css } from "styled-components";
+import styled, {css, keyframes} from "styled-components";
 
-const Header = styled.header`
+const appearance = keyframes`
+  from {
+    visibility: hidden;
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    visibility: visible;
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
+
+const Main = styled.header`
   display: flex;
-  justify-content: left;
+  justify-content: center;
   align-items: center;
-  width: 100%;
+  flex-direction: column;
 `;
 
 const Container = styled.div`
@@ -12,8 +25,13 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 60px 0;
+  padding: 40px 30px;
+  margin: 50px 0;
   min-height: 270px;
+  min-width: 300px;
+  max-width: 500px;
+  background: #ffffff30;
+  border-radius: 20px;
 `;
 const City = styled.div`
   text-align: center;
@@ -51,8 +69,10 @@ const SearchCityContainer = styled.div`
   flex-direction: column;
 `;
 
+
+
 const Form = styled.form`
-position: relative;
+  position: relative;
 `;
 
 const FormSubmitButton = styled.input`
@@ -62,6 +82,7 @@ const FormSubmitButton = styled.input`
   border-bottom-right-radius: 4px;
   background: #ffffff90;
   transition: 0.05s ease;
+
   &:active {
     background: #aaaaaa90;
   }
@@ -76,14 +97,18 @@ const FormInput = styled.input`
   border-bottom-left-radius: 4px;
   padding: 0;
   padding-left: 10px;
+
+  &:focus {
+    background: #ffffff80;
+  }
+
   &::placeholder {
-    color: #CDD5C1;
+    color: #cdd5c1;
   }
 
   &:focus {
-    outline: none
+    outline: none;
   }
-  
 `;
 
 const CityList = styled.ul`
@@ -96,13 +121,13 @@ const CityList = styled.ul`
   width: 264.37px;
   min-height: 30px;
   background: #ffffff50;
-  
+
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
 
   overflow: hidden;
-
-`
+  animation: ${appearance} 0.1s ease;
+`;
 
 const CityItem = styled.li`
   display: flex;
@@ -114,13 +139,14 @@ const CityItem = styled.li`
   min-height: 30px;
   border-bottom: 1px solid #ffffff50;
   cursor: pointer;
+
   &:hover {
     background: #ffffff50;
   }
-`
+`;
 
 export {
-  Header,
+  Main,
   Container,
   Time,
   Info,
@@ -132,5 +158,5 @@ export {
   FormInput,
   FormSubmitButton,
   CityList,
-  CityItem
+  CityItem,
 };

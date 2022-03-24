@@ -13,7 +13,7 @@ const lang = "uk";
 
 const getWeatherFromCoords = async (
   latitude = 50.06438222574136,
-  longitude = 31.346369126996468,
+  longitude = 31.346369126996468
 ) => {
   return await axios
     .get(
@@ -45,6 +45,7 @@ const _transformParams = (res) => {
   };
 
   const currentDate = new Date();
+  console.log();
 
   // changing time for current city
   currentDate.setTime(
@@ -53,11 +54,15 @@ const _transformParams = (res) => {
       res.data.timezone * 1000
   );
 
+  const hours = ("0" + currentDate.getHours()).slice(-2);
+  const minutes = ("0" + currentDate.getMinutes()).slice(-2);
+
   transformParams.city = res.data.name;
   transformParams.weather = res.data.weather[0].main;
-  transformParams.date = `${currentDate.getHours()}:${currentDate.getMinutes()} ${currentDate.toLocaleDateString()}`;
+  transformParams.date = `${hours}:${minutes} ${currentDate.toLocaleDateString()}`;
   transformParams.temp = Math.round(res.data.main.temp);
   transformParams.icon = res.data.weather[0].icon;
+  transformParams.hours = currentDate.getHours();
 
   return transformParams;
 };

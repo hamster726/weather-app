@@ -1,135 +1,101 @@
-import {
-  GET_CATALOG,
-  ADD_TO_CART,
-  DELETE_FROM_CART,
-  REMOVE_FROM_CART,
-  CLEAR_CART,
-  SORT_BY,
-  FILTER_BY,
-  // UPDATE_PRICE,
-  // UPDATE_ORDER_SIZE,
-  IS_LOADING,
-} from "../types";
-import {
-  getCatalog,
-  // addToCart,
-  // deleteFromCart,
-  // clearCart,
-  // sortBy,
-  // filterBy,
-  // updatePrice,
-  // updateOrderSize,
-  isLoading,
-} from "../actions/actions";
+import { IS_LOADING, CURRENT_THEME, CURRENT_CITY } from "../types";
+import { isLoading, currentTheme, currentCity } from "../actions/actions";
+
+// const themes = {
+//   morning: {
+//     background: "linear-gradient(#00bbff, #d2f5ae)",
+//     color: "#0e1950",
+//   },
+//   day: {
+//     background: "linear-gradient(#e1e80d, #ff9900)",
+//     color: "#eeeeee",
+//   },
+//   evening: {
+//     background: "linear-gradient(360deg, #facf62, #e6756f, #884186)",
+//     color: "#333333",
+//   },
+//   night: {
+//     background: "linear-gradient(45deg, #111642, #2d729f)",
+//     color: "#CDD5C1",
+//   },
+//   test: {
+//     background: "linear-gradient(#00bbff, #d2f5ae,#e1e80d, #ff9900,#facf62, #e6756f, #884186,#111642, #2d729f)",
+//     color: "#CDD5C1",
+//   }
+// };
+
+const themes = {
+  morning: { backgroundOffset: 0, color: "#00000099" },
+  day: { backgroundOffset: 33, color: "#00000099" },
+  evening: { backgroundOffset: 75, color: "#00000099" },
+  night: { backgroundOffset: 100, color: "#eeeeee90" },
+};
 
 const initialState = {
-  catalog: [],
-  // sortedCatalog: [],
-  sortBy: {popularity: "популярності"},
-  filterBy: "all",
-  // sumPrice: 0,
-  cart: {},
+  city: [],
+  theme: themes.night,
   isLoading: true,
-  // Переместить в константы
-  sorters: [
-    { popularity: "популярності" },
-    { price: "ціні" },
-    { alphabet: "алфавіту" },
-  ],
-  // Переместить в константы
-  filters: [
-    { all: "Всі" },
-    { meat: "М'ясні" },
-    { vegan: "Веганська" },
-    { grill: "Гриль" },
-    { spice: "Гострі" },
-  ],
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_CATALOG: {
-      return {
-        ...state,
-        catalog: action.payload,
-      };
-    }
-    case ADD_TO_CART: {
-      const cartCopy = Object.assign({}, state.cart);
-      const pizzaCopy = Object.assign({}, action.payload);
-      const pizzaKey = `${pizzaCopy.key}-${pizzaCopy.dough}-${pizzaCopy.size}`;
+    case CURRENT_THEME: {
+      const time = action.payload;
 
-      if (Object.keys(cartCopy).includes(pizzaKey)) {
-        pizzaCopy.quantity = cartCopy[pizzaKey].quantity + 1;
-      } else {
-        pizzaCopy.quantity = 1;
-      }
-
-      cartCopy[pizzaKey] = pizzaCopy;
-
-      return {
-        ...state,
-        cart: cartCopy,
-      };
-    }
-    case REMOVE_FROM_CART: {
-      const cartCopy = Object.assign({}, state.cart);
-      const pizzaCopy = Object.assign({}, action.payload);
-      const pizzaKey = `${pizzaCopy.key}-${pizzaCopy.dough}-${pizzaCopy.size}`;
-
-      if (cartCopy[pizzaKey].quantity === 1) {
-        delete cartCopy[pizzaKey];
-      } else {
-        pizzaCopy.quantity = cartCopy[pizzaKey].quantity - 1;
-        cartCopy[pizzaKey] = pizzaCopy;
-      }
-
-      return {
-        ...state,
-        cart: cartCopy,
-      };
-    }
-
-    case DELETE_FROM_CART: {
-      const cartCopy = Object.assign({}, state.cart);
-      const pizzaCopy = Object.assign({}, action.payload);
-      const pizzaKey = `${pizzaCopy.key}-${pizzaCopy.dough}-${pizzaCopy.size}`;
-      delete cartCopy[pizzaKey];
-
-      return {
-        ...state,
-        cart: cartCopy,
-      };
-    }
-
-    case CLEAR_CART: {
-      return {
-        ...state,
-        cart: {}
+      switch (time) {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+          return { ...state, theme: themes.night };
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+          return { ...state, theme: themes.morning };
+        case 10:
+        case 11:
+        case 12:
+        case 13:
+        case 14:
+        case 15:
+        case 16:
+        case 17:
+        case 18:
+          return { ...state, theme: themes.day };
+        case 19:
+        case 20:
+        case 21:
+          return { ...state, theme: themes.evening };
+        case 22:
+        case 23:
+        case 24:
+          return { ...state, theme: themes.night };
       }
     }
 
-    case IS_LOADING: {
-      return {
-        ...state,
-        isLoading: action.payload,
-      };
-    }
+    // for example
 
-    case FILTER_BY: {
-      return {
-        ...state,
-        filterBy: action.payload,
-      };
-    }
-
-    case SORT_BY: {
-      return {
-        ...state,
-        sortBy: action.payload,
-      };
-    }
-
+    // case ADD_TO_CART: {
+    //   const cartCopy = Object.assign({}, state.cart);
+    //   const pizzaCopy = Object.assign({}, action.payload);
+    //   const pizzaKey = `${pizzaCopy.key}-${pizzaCopy.dough}-${pizzaCopy.size}`;
+    //
+    //   if (Object.keys(cartCopy).includes(pizzaKey)) {
+    //     pizzaCopy.quantity = cartCopy[pizzaKey].quantity + 1;
+    //   } else {
+    //     pizzaCopy.quantity = 1;
+    //   }
+    //
+    //   cartCopy[pizzaKey] = pizzaCopy;
+    //
+    //   return {
+    //     ...state,
+    //     cart: cartCopy,
+    //   };
+    // }
     default:
       console.log("default dispatch", action);
       return {
